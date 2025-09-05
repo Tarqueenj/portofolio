@@ -50,7 +50,7 @@
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             color: var(--text-primary);
-            background: var(--bg-primary);
+            background: var(--bg-dark);
             overflow-x: hidden;
         }
 
@@ -142,7 +142,7 @@
             padding: 8rem 0 4rem;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            background: var(--bg-dark);
         }
 
         .hero::before {
@@ -297,12 +297,22 @@
         .section-title h2 {
             font-family: 'Space Grotesk', sans-serif;
             font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
         }
 
         .section-title p {
@@ -319,102 +329,251 @@
             display: grid;
             grid-template-columns: 1fr 2fr;
             gap: 4rem;
-            align-items: center;
+            align-items: start;
         }
 
         .profile-card {
-            background: var(--bg-card);
-            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            box-shadow: var(--shadow-xl);
+            padding: 2.5rem;
             text-align: center;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 120px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .profile-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
 
         .profile-image {
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            margin: 0 auto 2rem;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            margin: 0 auto 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
             color: white;
             position: relative;
             overflow: hidden;
         }
 
-        .profile-image::before {
+        .image-wrapper {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-image i {
+            font-size: 3.5rem;
+            color: white;
+        }
+
+        .profile-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .profile-card .title {
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-card .location {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .social-link::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: shimmer 2s infinite;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .social-link i {
+            position: relative;
+            z-index: 2;
+        }
+
+        .social-link:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .social-link:hover::before {
+            opacity: 1;
+        }
+
+        .section-subtitle {
+            margin-bottom: 2rem;
+        }
+
+        .section-subtitle span {
+            display: inline-block;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .section-subtitle span::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
         }
 
         .about-text h3 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 1rem;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
             color: var(--text-primary);
+            line-height: 1.2;
+            font-weight: 800;
         }
 
-        .about-text p {
+        .about-description p {
             color: var(--text-secondary);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             font-size: 1.1rem;
             line-height: 1.8;
+            font-weight: 400;
+        }
+
+        .about-description p:last-child {
+            margin-bottom: 2.5rem;
         }
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
             margin: 3rem 0;
         }
 
         .stat-item {
             text-align: center;
-            padding: 1.5rem;
-            background: var(--bg-card);
-            border-radius: 15px;
-            box-shadow: var(--shadow-md);
-            transition: transform 0.3s ease;
+            padding: 2rem 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--gradient-primary);
+            transition: height 0.4s ease;
         }
 
         .stat-item:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border-color: rgba(37, 99, 235, 0.1);
+        }
+
+        .stat-item:hover::before {
+            height: 100%;
         }
 
         .stat-number {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            font-weight: 800;
+            background: var(--gradient-primary);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+            position: relative;
+            display: inline-block;
+        }
+
+        .stat-number::after {
+            content: '+';
+            position: relative;
+            font-size: 1.8rem;
+            top: -0.5rem;
+            background: var(--gradient-primary);
             background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .stat-label {
             color: var(--text-secondary);
+            font-size: 1rem;
             font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
         /* Skills Section */
@@ -478,14 +637,15 @@
         }
 
         .project-card {
-            background: var(--bg-card);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(0, 0, 0, 0.05);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
         
         .project-card::before {
@@ -527,19 +687,26 @@
 
         .project-content {
             padding: 2rem;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.98));
+            position: relative;
+            z-index: 1;
         }
 
         .project-content h4 {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.5rem;
             margin-bottom: 1rem;
-            color: var(--text-primary);
+            color: var(--primary-color);
+            font-weight: 700;
+            letter-spacing: -0.3px;
         }
 
         .project-content p {
             color: var(--text-secondary);
             margin-bottom: 1.5rem;
-            line-height: 1.7;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            font-weight: 400;
         }
 
         .project-links {
@@ -905,21 +1072,37 @@
             <div class="about-content fade-in">
                 <div class="profile-card">
                     <div class="profile-image">
-                        <i class="fas fa-user"></i>
+                        <div class="image-wrapper">
+                            <i class="fas fa-code"></i>
+                        </div>
                     </div>
                     <h3>Tarqueen Jepkoech</h3>
-                    <p>Full Stack Developer</p>
+                    <p class="title">Full Stack Developer</p>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i> Nakuru, Kenya</p>
                     <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="mailto:tarqueentech@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                        <a href="https://github.com/Tarqueenj" target="_blank" class="social-link" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/tarqueen-jepkoech" target="_blank" class="social-link" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://twitter.com/tarqueenj" target="_blank" class="social-link" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="mailto:tarqueentech@gmail.com" class="social-link" title="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="about-text">
-                    <h3>Passionate Developer</h3>
-                    <p>I'm a dedicated full stack developer with 2+ years of experience creating modern web applications. Based in Nakuru, Kenya, I specialize in building scalable solutions using cutting-edge technologies like React, Node.js, and cloud services.</p>
-                    <p>My passion lies in transforming complex problems into simple, beautiful, and intuitive solutions. I believe in writing clean, maintainable code and staying up-to-date with the latest industry trends and best practices.</p>
+                    <div class="section-subtitle">
+                        <span>Who am I</span>
+                        <h3>Passionate Full Stack Developer</h3>
+                    </div>
+                    <div class="about-description">
+                        <p>Hello! I'm Tarqueen, a passionate Full Stack Developer with expertise in building modern web applications. With a strong foundation in both frontend and backend technologies, I create seamless digital experiences that solve real-world problems.</p>
+                        <p>My journey in tech started with a curiosity about how things work, which evolved into a career where I get to build solutions that make a difference. I specialize in the MERN stack (MongoDB, Express, React, Node.js) and have experience with various other technologies across the stack.</p>
+                    </div>
                     
                     <div class="stats">
                         <div class="stat-item">
