@@ -1,5 +1,26 @@
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Add loading animation
+    document.body.style.overflow = 'hidden';
+    
+    // Typing effect for hero subtitle
+    const subtitle = document.querySelector('.hero .subtitle');
+    if (subtitle) {
+        const text = subtitle.textContent;
+        subtitle.textContent = '';
+        
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                subtitle.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        
+        // Start typing effect after hero animation
+        setTimeout(typeWriter, 1500);
+    }
     // Initialize cursor
     const cursor = document.createElement('div');
     cursor.classList.add('cursor');
@@ -153,5 +174,54 @@ document.addEventListener('DOMContentLoaded', function() {
         input.addEventListener('blur', () => {
             input.parentElement.style.transform = 'translateY(0)';
         });
+    });
+
+    // Particle background animation
+    function createParticle() {
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        particle.style.width = '4px';
+        particle.style.height = '4px';
+        particle.style.background = 'rgba(99, 102, 241, 0.5)';
+        particle.style.borderRadius = '50%';
+        particle.style.pointerEvents = 'none';
+        particle.style.animation = 'float 6s linear infinite';
+        
+        const x = Math.random() * window.innerWidth;
+        const y = window.innerHeight;
+        
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        
+        document.body.appendChild(particle);
+        
+        setTimeout(() => {
+            particle.remove();
+        }, 6000);
+    }
+
+    // Create particles periodically
+    setInterval(createParticle, 2000);
+
+    // Add scroll progress indicator
+    const progressBar = document.createElement('div');
+    progressBar.style.position = 'fixed';
+    progressBar.style.top = '0';
+    progressBar.style.left = '0';
+    progressBar.style.width = '0%';
+    progressBar.style.height = '3px';
+    progressBar.style.background = 'linear-gradient(45deg, var(--primary-color), var(--secondary-color))';
+    progressBar.style.zIndex = '10000';
+    progressBar.style.transition = 'width 0.3s ease';
+    document.body.appendChild(progressBar);
+
+    window.addEventListener('scroll', () => {
+        const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        progressBar.style.width = scrolled + '%';
+    });
+
+    // Show content after loading
+    window.addEventListener('load', () => {
+        document.body.style.overflow = 'visible';
     });
 });
